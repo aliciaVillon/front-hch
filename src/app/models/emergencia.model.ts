@@ -6,9 +6,9 @@ export class Emergencia {
         
         public apellidoPaterno: string,
         public apellidoMaterno: string,
-        public nombres?: string,
-        public fechaNacimiento?: string, 
-        public nroDocumento?: boolean,
+        public nombres: string,
+        public fechaNacimiento: string, 
+        public nroDocumento: boolean,
         public direccion?: string,
         public idTipoDocumentoCat02?: string,
         public idSexoCat02?: string,
