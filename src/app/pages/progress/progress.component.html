@@ -1,48 +1,29 @@
 <div class="row">
     <div class="col-12">
-        <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">DX Epidemiológicos</h4>
+            <div id="country-sales-range" class="date-range">
+                <i class="mdi mdi-calendar"></i>&nbsp;
+                <span class="date-holder">Marzo 22, 2023 - Abril 20, 2023</span>
+                <i class="mdi mdi-menu-down"></i>
+            </div>
+        </div>
+    </div>
+        <div class="col-12">
             <div class="card-body">
-                <h4 class="card-title">Striped Progress bar</h4>
-                <div class="progress m-t-20">
-                    <div class="progress-bar bg-primary progress-bar-striped active" 
-                         style="height:10px;" 
-                         [style.width]="getProgreso1" 
-                         role="progressbar">
-                         
-                         </div> 
-                </div>
-                <div class="progress m-t-20">
-                    <div class="progress-bar bg-info progress-bar-striped active" 
-                         style="height:10px;"
-                         [style.width]="getProgreso2" 
-                         role="progressbar">
-                        
-                         </div>
+                <h4 class="card-title">Monthly Report</h4>
+                <canvas baseChart class="chart"
+        [data]="barChartData"
+        [options]="barChartOptions"
+        [plugins]="barChartPlugins"
+        [type]="barChartType"
+        (chartHover)="chartHovered($event)"
+        (chartClick)="chartClicked($event)">
+</canvas>
 
-                </div>
+<button mat-button mat-raised-button color="primary" (click)="randomize()">Refrescar</button>
+            
             </div>
         </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-6">
-        <div class="card">
-            <div class="card-body"> 
-                <app-incrementador  (valorSalida)=" progreso1 = $event" 
-                                    [valor]="progreso1">
-                </app-incrementador>
-            </div>
-        </div>
-    </div>
-    <div class="col-6">
-        <div class="card">
-            <div class="card-body">
-                <app-incrementador  (valorSalida)=" progreso2 = $event" 
-                                    [valor]="progreso2"
-                                    btnClase="btn-info">
-                                    
-                </app-incrementador>
-            </div>
-        </div>
-    </div>
+    
 </div>

@@ -1,0 +1,117 @@
+<form class="form-horizontal form-material"  [formGroup]="emergenciaForm"
+(submit)="guardarEmergencia()">
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="form-group">
+            <label>Tipo Documento</label>
+            <select class="form-control custom-select" formControlName="idTipoDocumentoCat02">
+                <option>--Seleccione--</option>
+                <option value="1">DNI</option>
+                <option value="2">PASAPORTE</option>
+                <option value="3">SIN DOCUMENTO</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label>Nro. Documento</label>
+            <input type="text" class="form-control" formControlName="nroDocumento">
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label>Sexo</label>
+            <select class="form-control custom-select"  formControlName="idSexoCat02">
+                <option>--Seleccione--</option>
+                <option value="1">Femenino</option>
+                <option value="2">Masculino</option>
+            </select>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        <div class="form-group">
+            <label>Apellido Paterno</label>
+            <input type="text" class="form-control" formControlName="apellidoPaterno">
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label>Apellido Materno</label>
+            <input type="text" class="form-control"  formControlName="apellidoMaterno">
+        </div>
+    </div>
+    <div class="col-3">
+        <div class="form-group">
+            <label>Nombres</label>
+            <input type="text" class="form-control" formControlName="nombres">
+        </div>
+    </div>
+    <div class="col-3">
+        <div class="form-group">
+            <label>Fec. Nac. <span class="font-11 text-muted">(yyyy-mm-dd)</span></label>
+            <input type="text" class="form-control" formControlName="fechaNacimiento" >
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <label>Ubigeo Dirección</label>
+        <div class="input-group">
+            <span class="input-group-btn">
+                <button class="btn btn-info" type="button">...</button>
+            </span>
+            <input type="text" class="form-control" placeholder="">
+        </div>
+
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Dirección</label>
+            <input type="text" class="form-control" formControlName="direccion" >
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Resumen anamnesis</label>
+            <textarea class="form-control" rows="3" formControlName="observacion" ></textarea>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label>Destino</label>
+            <select class="form-control custom-select" formControlName="idDestino" >
+                <option value="0">--Seleccione--</option>
+                <option value="1">Alta médica</option>
+                <option value="2">Hospitalizado</option>
+                <option value="3">Observación </option>
+            </select>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <label>Diagnóstico CIEX</label>
+        <div class="input-group">
+            <span class="input-group-btn">
+                <button class="btn btn-info" type="button">...</button>
+            </span>
+
+            <input type="text" class="form-control" formControlName="ciex">
+        </div>
+
+    </div>
+</div>
+ 
+<br> 
+<div class="form-group">
+    <div class="checkbox checkbox-success">
+        <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Grabar</button>
+        <button type="button" class="btn waves-effect waves-light btn-secondary">Nuevo</button>
+    </div>
+</div> 
+</form>

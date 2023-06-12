@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { ChartConfiguration, ChartData, ChartEvent, ChartType } from 'chart.js';
+import { BaseChartDirective } from 'ng2-charts';
+
+import DataLabelsPlugin from 'chartjs-plugin-datalabels';
 
 @Component({
   selector: 'app-progress',
@@ -6,20 +10,61 @@ import { Component } from '@angular/core';
   styleUrls: ['./progress.component.css']
 })
 export class ProgressComponent {
+  @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
 
-  progreso1: number = 25;
-  progreso2: number = 25;
+  public barChartOptions: ChartConfiguration['options'] = {
+    responsive: true,
+    // We use these empty structures as placeholders for dynamic theming.
+    scales: {
+      x: {},
+      y: {
+        min: 10
+      }
+    },
+    plugins: {
+      legend: {
+        display: true,
+      },
+      datalabels: {
+        anchor: 'end',
+        align: 'end'
+      }
+    }
+  };
+  public barChartType: ChartType = 'bar';
+  public barChartPlugins = [
+    DataLabelsPlugin
+  ];
 
-  get getProgreso1(){
-    return `${this.progreso1}%`;
+  public barChartData: ChartData<'bar'> = {
+    labels: [ 'A97.2	DENGUE GRAVE', 'A00.9	COLERA, NO ESPECIFICADO' ],
+    datasets: [
+      { data: [ 65, 59 ], label: 'HOSPITAL III JOSE CAYETANO HEREDIA' },
+      { data: [ 28, 48], label: 'C.S. SANTA ROSA' },
+      { data: [ 0, 20 ], label: 'C.S. BERNAL' }
+    ]
+  };
+
+  // events
+  public chartClicked({ event, active }: { event?: ChartEvent, active?: {}[] }): void {
+    console.log(event, active);
   }
 
-  get getProgreso2(){
-    return `${this.progreso2}%`;
+  public chartHovered({ event, active }: { event?: ChartEvent, active?: {}[] }): void {
+    console.log(event, active);
   }
 
-  cambioValorHijo(valor: number){
-    this.progreso1 = valor;
-  //console.log('HEY:: ' + valor);
+  public randomize(): void {
+    // Only Change 3 values
+    this.barChartData.datasets[0].data = [
+      Math.round(Math.random() * 100),
+      59,
+      80,
+      Math.round(Math.random() * 100),
+      56,
+      Math.round(Math.random() * 100),
+      40 ];
+
+    this.chart?.update();
   }
 }

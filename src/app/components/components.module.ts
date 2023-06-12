@@ -4,22 +4,28 @@ import { FormsModule } from '@angular/forms';
 import { IncrementadorComponent } from './incrementador/incrementador.component';
 import { DonaComponent } from './dona/dona.component';
 import { NgChartsModule } from 'ng2-charts';
+//import { GraficoBarraHorizontalComponent } from './grafico-barra-horizontal/grafico-barra-horizontal.component';
 
+import {NgxChartsModule} from '@swimlane/ngx-charts' 
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
 
 @NgModule({
   declarations: [
     IncrementadorComponent,
-    DonaComponent
+    DonaComponent,
+   // GraficoBarraHorizontalComponent
   ],
   exports: [
     IncrementadorComponent,
-    NgChartsModule,
-    DonaComponent
+    DonaComponent,
+   // GraficoBarraHorizontalComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
-    NgChartsModule
+    NgChartsModule,
+  //  BrowserAnimationsModule,
+    //NgxChartsModule,
   ]
 })
 export class ComponentsModule { }

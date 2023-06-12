@@ -11,8 +11,9 @@ export class SidebarService {
       icono:'mdi mdi-gauge',
       subMenu:[
         { titulo:'Main', url:'/'},
-        { titulo:'ProgressBar', url:'progress'},
-        { titulo:'Grafica', url:'grafica1'}
+        { titulo:'Emergencia', url:'triaje'},
+      //  { titulo:'Reporte Epidemio', url:'progress'},
+        { titulo:'Reporte Alerta', url:'progress'}
       ]
     }
   ]
