@@ -1,0 +1,155 @@
+<form class="form-horizontal" [formGroup]="emergenciaForm" (submit)="guardarEmergencia()">
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Tipo Documento</label>
+                <select class="form-control custom-select" formControlName="idTipoDocumentoCat02">
+                    <option value="">--Seleccione--</option>
+                    <option value="1">DNI</option>
+                    <option value="2">PASAPORTE</option>
+                    <option value="3">OTRO</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Nro. Documento</label>
+                <input type="text" class="form-control" formControlName="nroDocumento">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Sexo</label>
+                <select class="form-control custom-select" formControlName="idSexoCat02">
+                    <option value="">--Seleccione--</option>
+                    <option value="1">Femenino</option>
+                    <option value="2">Masculino</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Apellido Paterno</label>
+                <input type="text" class="form-control" (keyup)="convertToUpperCaseApellidoPater($event)"
+                    [(ngModel)]="inputApellidoPater" formControlName="apellidoPaterno">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Apellido Materno</label>
+                <input type="text" class="form-control" (keyup)="convertToUpperCase($event)" [(ngModel)]="inputValue"
+                    formControlName="apellidoMaterno">
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group">
+                <label>Nombres</label>
+                <input type="text" class="form-control" (keyup)="convertToUpperCaseNombre($event)"
+                    [(ngModel)]="inputNombres" formControlName="nombres">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Departamento</label>
+                <select class="form-control" 
+                        [(ngModel)]="selectedDepartamento" 
+                        (change)="onDepartamentoChange($event)">
+                    <option value="">--Seleccione--</option> 
+                    <option *ngFor="let item of departamentos" [value]="item.idDepartamento">{{item.descripcion}}</option> 
+                      
+                </select> 
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Provincia</label>
+                <select class="form-control" 
+                    [(ngModel)]="selectedProvincia" 
+                    (change)="onProvinciaChange($event)">
+                    <option value="">--Seleccione--</option>
+                    <option *ngFor="let item of provincias" [value]="item.idProvincia">{{item.descripcion}}</option> 
+                   
+                </select>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Distrito</label>
+                <select class="form-control" formControlName="idRegUbigeoDireccion"
+                [(ngModel)]="selectedDistrito" >
+                    <option value="">--Seleccione--</option>
+                    <option *ngFor="let item of distritos" [value]="item.idUbigeo">{{item.descripcion}}</option> 
+                </select>
+            </div>
+        </div>
+    </div>
+        <div class="row"> 
+        <div class="col-md-8">
+            <div class="form-group">
+                <label>Dirección</label>
+                <input type="text" class="form-control" formControlName="direccion">
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group">
+                <label>Fec. Nac.</label>
+                <input type="date" class="form-control" placeholder="yyyy-mm-dd" formControlName="fechaNacimiento">
+            </div>
+        </div>
+    </div> 
+    <div class="row">
+        <div class="col-md-8">
+            <div class="form-group">
+                <label>Resumen anamnesis</label>
+                <textarea class="form-control" rows="3" formControlName="observacion"></textarea>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Destino</label>
+                <select class="form-control custom-select" formControlName="idDestino">
+                    <option value="">--Seleccione--</option>
+                    <option value="1">Alta médica</option>
+                    <option value="2">Hospitalizado</option>
+                    <option value="3">Observación </option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <label>Diagnóstico CIEX</label>
+            <select class="form-control" formControlName="ciex.idciex"
+                [(ngModel)]="selectedCiex"  
+                (change)="onCiexChange($event)">
+                <option value="">--Seleccione--</option> 
+                <option *ngFor="let item of diagnosticos" [value]="item.idciex">{{item.descripcion}}</option> 
+            </select> 
+            <!--  <div class="input-group">
+            <span class="input-group-btn">
+                  <button class="btn btn-info" type="button">...</button>
+                <button class="btn btn-primary" type="button" (click)="showModal = true">Open Modal</button>
+
+            </span>
+
+            <input type="text" class="form-control" formControlName="ciex">
+        </div>-->
+
+        </div>
+    </div>
+
+    <br>
+    <div class="form-group">
+        <div class="checkbox checkbox-success">
+            <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Grabar</button>
+            <button type="button" class="btn waves-effect waves-light btn-secondary">Nuevo</button>
+        </div>
+    </div>
+
+
+</form>

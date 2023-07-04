@@ -1,0 +1,63 @@
+<form class="form-horizontal" [formGroup]="configurarForm" (submit)="guardar()">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Diagnóstico CIEX</label>
+                        <select class="form-control" formControlName="ciex.idciex" [(ngModel)]="selectedCiex">
+                            <option value="">--Seleccione--</option>
+                            <option *ngFor="let item of diagnosticos" [value]="item.idciex">{{item.descripcion}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="form-group">
+                        <label>Intervalo</label>
+                        <input type="text" class="form-control"  formControlName="nombres">
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <div class="checkbox checkbox-success" style="margin-top: 22px;">
+                            <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Grabar Configuración</button> 
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </div>
+</form>
+
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ITEM</th>
+                        <th>CIEX</th>
+                        <th>DESCRIPCION DX</th>
+                        <th>INTERVALO NOTIFICACION</th>
+                        <th class="text-nowrap">ACCION</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>A97.2</td>
+                        <td>DENGUE GRAVE</td>
+                        <td>10</td>
+                        <td class="text-nowrap">
+                            <a href="#" data-toggle="tooltip" data-original-title="Edit"> <i
+                                    class="fa fa-pencil text-inverse m-r-10"></i> </a>
+                            <a href="#" data-toggle="tooltip" data-original-title="Close"> <i
+                                    class="fa fa-close text-danger"></i> </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
