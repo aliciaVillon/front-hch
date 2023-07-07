@@ -4,7 +4,7 @@
             <div class="col-3">
                 <div class="form-group">
                     <label>Fec. Aten. Desde</label>
-                    <input type="date" class="form-control" placeholder="yyyy-mm-dd">
+                    <input type="date" class="form-control"  placeholder="yyyy-mm-dd">
                 </div>
             </div>
             <div class="col-3">
@@ -59,51 +59,59 @@
                     </select>
                 </div>
             </div>
-        </div>  
+        </div>
+        <div class="row">
+            <div class="col-md-12" style="text-align: right;">
+                <button type="button" class="btn btn-success"><i class="fa fa-search"></i> Buscar</button>
+            </div>
+        </div> 
         <div id="example_filter" class="dataTables_filter">
-           <label>Buscar:<input class="" type="text" [(ngModel)]="textoBusqueda" (ngModelChange)="Search()" name="firstName"  placeholder="paciente" ></label></div>
-            <table class="table">
-                <thead>
-                    <tr role="row">
-                        <th (click)="sort('id')"  class="sorting_desc" tabindex="0" rowspan="1" colspan="1" style="width: 220px;"
-                            aria-label="Name: activate to sort column ascending" aria-sort="descending"># &nbsp;<i class="fa fa-sort"></i></th>
-                       
-                            <th class="sorting" tabindex="0" rowspan="1" colspan="1" style="width: 323px;"
-                            aria-label="Position: activate to sort column ascending">Paciente</th>
-                        <th class="sorting" tabindex="0" rowspan="1" colspan="1" style="width: 163px;"
-                            aria-label="Office: activate to sort column ascending">Edad</th>
-                        <th class="sorting" tabindex="0" aria-controls="example23" rowspan="1" colspan="1"
-                            style="width: 149px;" aria-label="Start date: activate to sort column ascending">HC</th>
-                        <th (click)="sort('especialidad')" class="sorting_desc" tabindex="0" aria-controls="example23" rowspan="1" colspan="1"
-                            style="width: 140px;" >Especialidad&nbsp;<i class="fa fa-sort"></i>
-                        </th>
-                        <th class="sorting" tabindex="0" aria-controls="example23" rowspan="1" colspan="1"
-                            style="width: 127px;" aria-label="Salary: activate to sort column ascending">Financ.</th>
-                        <th class="sorting" tabindex="0" aria-controls="example23" rowspan="1" colspan="1"
-                            style="width: 140px;" aria-label="Salary: activate to sort column ascending">F. Aten</th>
-                        <th class="sorting" tabindex="0" aria-controls="example23" rowspan="1" colspan="1"
-                            style="width: 127px;" aria-label="Salary: activate to sort column ascending">Turno</th>
-                        <th class="sorting" tabindex="0" aria-controls="example23" rowspan="1" colspan="1"
-                            style="width: 127px;" aria-label="Salary: activate to sort column ascending">Médico</th>
-                        <th class="sorting" tabindex="0" aria-controls="example23" rowspan="1" colspan="1"
-                            style="width: 127px;" aria-label="Salary: activate to sort column ascending">Dx</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let atencion of atencionHis | paginate: { itemsPerPage: 10, currentPage: p }">
-                        <td class="sorting_1">{{atencion.id}}</td>
-                        <td>Software Engineer</td>
-                        <td>San Francisco</td>
-                        <td>2012/06/01</td>
-                        <td>{{atencion.especialidad}}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>{{atencion.nombreMedico}}</td>
-                        <td></td>
-                    </tr>
-                </tbody> 
-            </table>
-            <pagination-controls (pageChange)="p = $event"></pagination-controls> 
+            <label>Buscar:<input class="" type="text" [(ngModel)]="textoBusqueda" (ngModelChange)="Search()"
+                    name="firstName" placeholder=""></label>
+        </div>
+        <table class="table">
+            <thead>
+                <tr role="row">
+                    <th (click)="sort('id')" class="sorting_desc" tabindex="0" rowspan="1" colspan="1"
+                        style="width: 220px;" aria-label="Name: activate to sort column ascending"
+                        aria-sort="descending"># &nbsp;<i class="fa fa-sort"></i></th>
+
+                    <th class="sorting" tabindex="0" rowspan="1" colspan="1" style="width: 323px;"
+                        aria-label="Position: activate to sort column ascending">Paciente</th>
+                    <th class="sorting" tabindex="0" rowspan="1" colspan="1" style="width: 163px;"
+                        aria-label="Office: activate to sort column ascending">Edad</th>
+                    <th class="sorting" tabindex="0" aria-controls="example23" rowspan="1" colspan="1"
+                        style="width: 149px;" aria-label="Start date: activate to sort column ascending">HC</th>
+                    <th (click)="sort('especialidad')" class="sorting_desc" tabindex="0" aria-controls="example23"
+                        rowspan="1" colspan="1" style="width: 140px;">Especialidad&nbsp;<i class="fa fa-sort"></i>
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="example23" rowspan="1" colspan="1"
+                        style="width: 127px;" aria-label="Salary: activate to sort column ascending">Financ.</th>
+                    <th class="sorting" tabindex="0" aria-controls="example23" rowspan="1" colspan="1"
+                        style="width: 140px;" aria-label="Salary: activate to sort column ascending">F. Aten</th>
+                    <th class="sorting" tabindex="0" aria-controls="example23" rowspan="1" colspan="1"
+                        style="width: 127px;" aria-label="Salary: activate to sort column ascending">Turno</th>
+                    <th class="sorting" tabindex="0" aria-controls="example23" rowspan="1" colspan="1"
+                        style="width: 127px;" aria-label="Salary: activate to sort column ascending">Médico</th>
+                    <th class="sorting" tabindex="0" aria-controls="example23" rowspan="1" colspan="1"
+                        style="width: 127px;" aria-label="Salary: activate to sort column ascending">Dx</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let atencion of atencionHis | paginate: { itemsPerPage: 10, currentPage: p }">
+                    <td class="sorting_1">{{atencion.id}}</td>
+                    <td>Software Engineer</td>
+                    <td>San Francisco</td>
+                    <td>2012/06/01</td>
+                    <td>{{atencion.especialidad}}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>{{atencion.nombreMedico}}</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
     </div>
 </form>

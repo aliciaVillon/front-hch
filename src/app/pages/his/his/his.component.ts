@@ -14,13 +14,10 @@ export class HisComponent implements OnInit {
   public cargando: boolean = true;
   public atencionHis: AtencionHis[] = [];
   public atencionHisTemp: AtencionHis[] = [];
-  textoBusqueda: any;
-  filteredData: any[] = [];
+  textoBusqueda: any; 
   searchTerm: string = '';
-  p: number = 1;
-  currentPage = 1; // Página actual
-  pageSize = 10; // Tamaño de página
-
+  p: number = 1; 
+  currentDate: string;
   sortColumn: string = '';
   sortDirection: string = '';
 
@@ -45,6 +42,11 @@ export class HisComponent implements OnInit {
     this.atencionHis.push(atencion1, atencion2, atencion3, atencion4, atencion5, atencion6, atencion7
       , atencion8, atencion9, atencion10, atencion11, atencion12);
 
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = ('0' + (today.getMonth() + 1)).slice(-2);
+    const day = ('0' + today.getDate()).slice(-2);
+    this.currentDate = `${year}-${month}-${day}`;
   }
 
   Search() {
