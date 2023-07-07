@@ -5,23 +5,27 @@ import { Injectable } from '@angular/core';
 })
 export class SidebarService {
 
+   
   menu: any[]=[
     {
-      titulo: 'Principal',
+      titulo: 'HIS',
       icono:'mdi mdi-gauge',
+
       subMenu:[
         { titulo:'Main', url:'/'},
-       /* { titulo:'Grafica', url:'grafica1'},
+        { titulo:'Enviar HIS Minsa',url:'his'}, 
+        { titulo:'Enviados', url:'hisEnviados'},
+      /*  { titulo:'Grafica', url:'grafica1'},
         { titulo:'ProgressBar', url:'progress'}, 
         { titulo:'Promesas', url:'promesas'},
-        { titulo:'rxjs', url:'rxjs'}*/
+        { titulo:'rxjs', url:'rxjs'}, 
         { titulo:'Emergencia', url:'triaje'},
-       // { titulo:'Reporte Epidemio', url:'progress'},
+        { titulo:'Reporte Epidemio', url:'progress'},
         { titulo:'Configurar Alerta', url:'configurar'},
         { titulo:'Reporte Alerta', url:'alerta'},
-        
+        */
       ]
     }
-  ]
+  ] 
   constructor() { }
 }

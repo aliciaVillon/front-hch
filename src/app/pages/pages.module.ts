@@ -14,8 +14,9 @@ import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { ReporteComponent } from './reporte/reporte.component';
 import { CiexComponent } from './ciex/ciex.component';
-import { ModalComponent } from './modal/modal.component';
- 
+import { ModalComponent } from './modal/modal.component'; 
+import { HisComponent } from './his/his/his.component'; 
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,13 @@ import { ModalComponent } from './modal/modal.component';
    ProgressComponent,
    Grafica1Component,
    PagesComponent, 
-   AccountSettingsComponent, PromesasComponent, RxjsComponent, ReporteComponent, CiexComponent, ModalComponent, 
+   AccountSettingsComponent, 
+   PromesasComponent, 
+   RxjsComponent, 
+   ReporteComponent, 
+   CiexComponent, 
+   ModalComponent, 
+   HisComponent
   ],
   exports: [
     DashboardComponent,
@@ -31,6 +38,7 @@ import { ModalComponent } from './modal/modal.component';
     Grafica1Component,
     PagesComponent, 
     AccountSettingsComponent,
+    HisComponent
    ],
   imports: [
     CommonModule,
@@ -38,7 +46,8 @@ import { ModalComponent } from './modal/modal.component';
     AppRoutingModule,
     AuthModule, 
     FormsModule,
-    ComponentsModule
+    ComponentsModule,
+    NgxPaginationModule
   ]
 })
 export class PagesModule { }

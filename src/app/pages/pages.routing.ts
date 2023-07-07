@@ -10,6 +10,8 @@ import { RxjsComponent } from "./rxjs/rxjs.component";
 import { EmergenciaComponent } from "./emergencia/emergencia.component";
 import { ReporteComponent } from "./reporte/reporte.component";
 import { ConfigurarComponent } from "../components/configurar/configurar.component";
+import { HisComponent } from "./his/his/his.component";
+import { HisEnviadosComponent } from "./his/his-enviados/his-enviados.component";
 const routes: Routes=[
     {
         path: 'dashboard', 
@@ -23,6 +25,8 @@ const routes: Routes=[
           {path: 'promesas', component:PromesasComponent, data:{titulo: 'Promesas'}},
           {path: 'triaje', component:EmergenciaComponent},
           {path: 'alerta', component:ReporteComponent},
+          {path: 'his', component:HisComponent},
+          {path: 'hisEnviados', component:HisEnviadosComponent}, 
           {path: 'configurar', component:ConfigurarComponent},
           {path: 'rxjs', component:RxjsComponent, data:{titulo: 'Rxjs'}},
         ]

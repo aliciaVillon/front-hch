@@ -1033,7 +1033,7 @@ File: scss
   .topbar .navbar-collapse {
     padding: 0 10px; }
   .topbar .top-navbar {
-    min-height: 70px;
+    min-height: 50px;
     padding: 0px; }
     .topbar .top-navbar .dropdown-toggle::after {
       display: none; }

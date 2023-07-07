@@ -7,8 +7,10 @@ import { tap, map, catchError } from 'rxjs/operators';
 import { Usuario } from '../models/usuario.model';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
+import { CargarUsuario } from '../interfaces/cargar-usuarios.interface';
 
 const base_url = environment.base_url;
+declare const gapi: any;
 
 @Injectable({
   providedIn: 'root'
@@ -18,19 +20,19 @@ export class UsuarioService {
   public usuario: Usuario;
 
   constructor(private http: HttpClient,
-    private router: Router,
-    private ngZone: NgZone) {
+              private router: Router,
+              private ngZone: NgZone) {
 
-     // this.googleInit();
+      this.googleInit();
   }
   get token(): string {
     return localStorage.getItem('token') || '';
   }
-/*
-  get role(): 'ADMIN_ROLE' | 'USER_ROLE' {
-     return this.usuario.role;
+
+  get role(): 'ADMIN_ROLE' | 'USER_ROLE' | undefined {
+     return this.usuario.role ;
   }
-*/
+
   get uid():string {
     return this.usuario.id || '';
   }
@@ -43,35 +45,23 @@ export class UsuarioService {
     }
   }
 
-  login(email: string, password: string) {
-    const body = { email, password };
-    return this.http.post(`${base_url}/usuario/login`, body);
+  googleInit() {
+
+    return new Promise( resolve => {
+      gapi.load('auth2', () => {
+        console.log("auth2");
+        this.auth2 = gapi.auth2.init({
+          
+          client_id: '1045072534136-oqkjcjvo449uls0bttgvl3aejelh22f5.apps.googleusercontent.com',
+          cookiepolicy: 'single_host_origin',
+        });
+
+        resolve;
+      });
+    })
+
   }
-  crearUsuario(formData: RegisterForm) {
-    console.log('creando usuario')
 
-    return this.http.post(`${base_url}/usuarios`, formData)
-      .pipe(
-        tap((resp: any) => {
-          //console.log(resp)
-
-          localStorage.setItem('token', resp.token)
-        })
-      )
-  }
-
-  loginUsuario(formData: LoginForm) {
-    console.log('login usuario')
-    console.log(formData)
-    return this.http.post(`${base_url}/usuario/login`, formData)
-      .pipe(
-        tap((resp: any) => {
-          console.log(resp)
-
-          localStorage.setItem('token', resp.token)
-        })
-      )
-  }
   guardarLocalStorage( token: string, menu: any ) {
 
     localStorage.setItem('token', token );
@@ -79,6 +69,18 @@ export class UsuarioService {
 
   }
   
+  logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('menu');
+
+    this.auth2.signOut().then(() => {
+
+      this.ngZone.run(() => {
+        this.router.navigateByUrl('/login');
+      })
+    }); 
+  }
+
   validarToken(): Observable<boolean> {
     console.log("validarToken()");
     return this.http.get(`${ base_url }/login/renew`, {
@@ -98,6 +100,46 @@ export class UsuarioService {
     );
 
   }
+
+
+ /* login(email: string, password: string) {
+    const body = { email, password };
+    return this.http.post(`${base_url}/usuario/login`, body);
+  }*/
+
+  crearUsuario(formData: RegisterForm) {
+    console.log('creando usuario')
+
+    return this.http.post(`${base_url}/usuarios`, formData)
+      .pipe(
+        tap((resp: any) => {
+          //console.log(resp)
+
+          localStorage.setItem('token', resp.token)
+        })
+      )
+  }
+  actualizarPerfil( data: { email: string, nombre: string, role?: string } ) {
+
+    data = {
+      ...data,
+      role: this.usuario.role
+    }
+
+    return this.http.put(`${ base_url }/usuarios/${ this.uid }`, data, this.headers );
+
+  }
+
+  login( formData: LoginForm ) {
+    
+    return this.http.post(`${ base_url }/login`, formData )
+                .pipe(
+                  tap( (resp: any) => {
+                    this.guardarLocalStorage( resp.token, resp.menu );
+                  })
+                ); 
+  }
+  
   loginGoogle(token: string) {
     return this.http.post(`${base_url}/login/google`, { token })
       .pipe(
@@ -108,19 +150,52 @@ export class UsuarioService {
       )
 
   }
+ 
+  cargarUsuarios( desde: number = 0 ) {
+
+    const url = `${ base_url }/usuarios?desde=${ desde }`;
+    return this.http.get<CargarUsuario>( url, this.headers )
+            .pipe(
+              map( resp => {
+                const usuarios = resp.usuarios.map( 
+                  user => new Usuario(user.nombre, user.email, '', user.img, user.google, user.role, user.id )  
+                );
+                return {
+                  total: resp.total,
+                  usuarios
+                };
+              })
+            )
+  }
 
 
-  logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('menu');
+  eliminarUsuario( usuario: Usuario ) {
+    
+      // /usuarios/5eff3c5054f5efec174e9c84
+      const url = `${ base_url }/usuarios/${ usuario.id }`;
+      return this.http.delete( url, this.headers );
+  }
 
-    this.auth2.signOut().then(() => {
+  guardarUsuario( usuario: Usuario ) {
 
-      this.ngZone.run(() => {
-        this.router.navigateByUrl('/login');
-      })
-    });
+    return this.http.put(`${ base_url }/usuarios/${ usuario.id }`, usuario, this.headers );
 
   }
+  loginUsuario(formData: LoginForm) {
+    console.log('login usuario')
+    console.log(formData)
+    return this.http.post(`${base_url}/usuario/login`, formData)
+      .pipe(
+        tap((resp: any) => {
+          console.log(resp)
+
+          localStorage.setItem('token', resp.token)
+        })
+      )
+  }
+
+
+
+ 
 }
 

@@ -79,7 +79,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
 
   eliminarUsuario( usuario: Usuario ) {
 
-    if ( usuario.uid === this.usuarioService.uid ) {
+    if ( usuario.id === this.usuarioService.uid ) {
       return Swal.fire('Error', 'No puede borrarse a si mismo', 'error');
     }
 
@@ -119,8 +119,8 @@ export class UsuariosComponent implements OnInit, OnDestroy {
 
 
   abrirModal( usuario: Usuario ) {
-  
-    this.modalImagenService.abrirModal('usuarios', usuario.uid, usuario.img );
+  //usuario.id
+    this.modalImagenService.abrirModal('usuarios', "1", usuario.img );
   }
 
 }

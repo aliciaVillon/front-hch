@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
-import { SidebarComponent } from './sidebar/sidebar.component';
-import { HaederComponent } from './haeder/haeder.component';
+import { SidebarComponent } from './sidebar/sidebar.component'; 
 import { RouterModule } from '@angular/router';
+import { HeaderComponent } from './header/header.component';
 
 
 
@@ -11,12 +11,12 @@ import { RouterModule } from '@angular/router';
   declarations: [
     BreadcrumbsComponent,
     SidebarComponent,
-    HaederComponent,
+    HeaderComponent,
   ],
   exports: [
     BreadcrumbsComponent,
     SidebarComponent,
-    HaederComponent,
+    HeaderComponent,
   ],
   imports: [
     CommonModule,
