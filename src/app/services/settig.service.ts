@@ -8,7 +8,7 @@ export class SettigService {
 
   constructor() {
      
-    const url = localStorage.getItem('theme') || '../assets/css/colors/megna-dark.css' ;  
+    const url = localStorage.getItem('theme') || '../assets/css/colors/blue.css' ;  
     this.linkTheme?.setAttribute('href', url); 
    }
 

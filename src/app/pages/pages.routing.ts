@@ -12,10 +12,15 @@ import { ReporteComponent } from "./reporte/reporte.component";
 import { ConfigurarComponent } from "../components/configurar/configurar.component";
 import { HisComponent } from "./his/his/his.component";
 import { HisEnviadosComponent } from "./his/his-enviados/his-enviados.component";
+import { HisPacientesComponent} from "./his/his-pacientes/his-pacientes.component";
+import { AuthGuard } from "../guards/auth.guard";
+
 const routes: Routes=[
     {
         path: 'dashboard', 
         component:PagesComponent,
+        canActivate: [ AuthGuard ],
+        canLoad: [ AuthGuard ],
         children:[ 
           {path: '', component:DashboardComponent, data:{titulo: 'Dashboard'}},
        //   {path: '', redirectTo:'dashboard',pathMatch: 'full'}, 
@@ -28,6 +33,7 @@ const routes: Routes=[
           {path: 'his', component:HisComponent},
           {path: 'hisEnviados', component:HisEnviadosComponent}, 
           {path: 'configurar', component:ConfigurarComponent},
+          {path: 'hisPaciente', component:HisPacientesComponent}, 
           {path: 'rxjs', component:RxjsComponent, data:{titulo: 'Rxjs'}},
         ]
       },
@@ -36,7 +42,8 @@ const routes: Routes=[
 @NgModule({
     declarations: [],
     imports: [
-      RouterModule.forChild(routes)
+      RouterModule.forChild(routes),
+      RouterModule.forRoot(routes)
     ],
     exports: [RouterModule]
   })

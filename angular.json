@@ -66,7 +66,7 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "adminpro:build:production"
+              "browserTarget": "adminpro:build:production" 
             },
             "development": {
               "browserTarget": "adminpro:build:development"

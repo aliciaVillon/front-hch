@@ -22,7 +22,7 @@ legend {
   width: 100%;
   padding: 0;
   margin-bottom: $line-height-computed;
-  font-size: ($font-size-base * 1.5);
+  font-size: (13px * 1.5);
   line-height: inherit;
   color: $legend-color;
   border: 0;
@@ -83,7 +83,7 @@ input[type="checkbox"]:focus {
 output {
   display: block;
   padding-top: ($padding-base-vertical + 1);
-  font-size: $font-size-base;
+  font-size: 13px;
   line-height: $line-height-base;
   color: $input-color;
 }
@@ -116,7 +116,7 @@ output {
   width: 100%;
   height: $input-height-base; // Make inputs at least the height of their button counterpart (base line-height + padding + border)
   padding: $padding-base-vertical $padding-base-horizontal;
-  font-size: $font-size-base;
+  font-size: 13px;
   line-height: $line-height-base;
   color: $input-color;
   background-color: $input-bg;
@@ -310,7 +310,7 @@ input[type="checkbox"] {
   padding-bottom: ($padding-base-vertical + 1);
   // Remove default margin from `p`
   margin-bottom: 0;
-  min-height: ($line-height-computed + $font-size-base);
+  min-height: ($line-height-computed + 13px);
 
   &.input-lg,
   &.input-sm {

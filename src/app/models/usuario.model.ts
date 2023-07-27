@@ -5,14 +5,14 @@ const base_url = environment.base_url;
 export class Usuario {
 
     constructor(
-        
+        public username: string,
         public nombre: string,
         public email: string,
-        public password?: string,
-        public img?: string, 
-        public google?: boolean,
-        public role?:'ADMIN_ROLE' | 'USER_ROLE',
-        public id?: string,
+        public password: string,
+        public img: string, 
+        public google: boolean,
+        public role:'ADMIN_ROLE' | 'USER_ROLE',
+        public id?: number,
     ){}
     get imagenUrl() {
 

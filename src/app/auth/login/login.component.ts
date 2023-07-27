@@ -13,13 +13,16 @@ declare const gapi:any;
 })
 export class LoginComponent implements OnInit {
 
+  username: string;
+  password: string;
+
   public formSubmitted = false;
   public auth2: any;
 
   public loginForm = this.fb.group({
-    email: [localStorage.getItem('email') ?? '', [ Validators.email]], 
-    usuario: ['', Validators.required],
-    password: ['', Validators.required],
+  //  email: [localStorage.getItem('email') ?? '', [ Validators.email]], 
+    username: ['AVILLON', Validators.required],
+    password: ['123456', Validators.required],
     remember: [false]
   });
 
@@ -33,12 +36,37 @@ export class LoginComponent implements OnInit {
     this.renderButton();
   }
 
-
+  
   login() {
+    console.log('Username:', this.username);
+    console.log('Password:', this.password);
+    this.usuarioService.login(this.username, this.password)
+      .subscribe(
+        response => {
+          // Lógica para manejar la respuesta exitosa del inicio de sesión
+          console.log('Inicio de sesión exitoso:', response);
+          this.router.navigateByUrl('/');
+        },
+        error => {
+          // Lógica para manejar el error del inicio de sesión
+          Swal.fire('Error', 'Usuario o password incorrectos.');
+         // console.error('Error de inicio de sesión:', error);
+        }
+      );
+  }
+
+
+
+/*** 
+  login() {
+   // console.log("this.username.value:::" + this.loginForm.get('username')?.value);
+   // console.log("this.password.value:::" + this.loginForm.get('password')?.value);
+   console.log('Username:', this.username);
+   console.log('Password:', this.password);
 
     this.usuarioService.login( this.loginForm.value )
       .subscribe( resp => {
-
+        console.log("intenta login" );
         if ( this.loginForm.get('remember')?.value ){ 
           localStorage.setItem('email', this.loginForm.get('email')?.value ?? '');
         } else {
@@ -57,7 +85,7 @@ export class LoginComponent implements OnInit {
         Swal.fire('Error', err.error.msg, 'error' );
       });
 
-  }
+  }*/
   
   renderButton() {
     gapi.signin2.render('my-signin2', {

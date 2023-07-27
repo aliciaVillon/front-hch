@@ -7,7 +7,7 @@ import { NgChartsModule } from 'ng2-charts';
 import { ModalComponent } from '../pages/modal/modal.component';
 import { HisComponent } from '../pages/his/his/his.component';
 import { HisEnviadosComponent } from '../pages/his/his-enviados/his-enviados.component'; 
-
+import { HisPacientesComponent } from 'src/app/pages/his/his-pacientes/his-pacientes.component'; 
 
 @NgModule({
   declarations: [
@@ -18,6 +18,7 @@ import { HisEnviadosComponent } from '../pages/his/his-enviados/his-enviados.com
     IncrementadorComponent,
     NgChartsModule,
     DonaComponent,
+    
    // ModalComponent
   ],
   imports: [

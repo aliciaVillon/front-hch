@@ -3,5 +3,5 @@
 export const environment = {
  
   production: true,
-  base_url:'http://localhost:8084/v1'
+  base_url_seguridad:'http://localhost:8084'
 };

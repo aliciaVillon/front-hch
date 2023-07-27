@@ -16,7 +16,7 @@ import { ReporteComponent } from './reporte/reporte.component';
 import { CiexComponent } from './ciex/ciex.component';
 import { ModalComponent } from './modal/modal.component'; 
 import { HisComponent } from './his/his/his.component'; 
-import { NgxPaginationModule } from 'ngx-pagination';
+//import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -30,7 +30,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
    ReporteComponent, 
    CiexComponent, 
    ModalComponent, 
-   HisComponent
+ //  HisComponent
   ],
   exports: [
     DashboardComponent,
@@ -38,7 +38,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     Grafica1Component,
     PagesComponent, 
     AccountSettingsComponent,
-    HisComponent
+   // HisComponent
    ],
   imports: [
     CommonModule,
@@ -47,7 +47,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     AuthModule, 
     FormsModule,
     ComponentsModule,
-    NgxPaginationModule
+    
   ]
 })
 export class PagesModule { }

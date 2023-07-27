@@ -1,0 +1,80 @@
+<div class="row">
+    <div class="col-2">
+        <button type="button" class="btn btn-block btn-secondary" (click)="regresar()">
+            <i class="fa  fa-mail-reply-all"></i> Regresar</button>
+    </div>
+    <div class="col-5">
+        <h3 class="text-themecolor">Listado de Pacientes Atendidos</h3>
+
+    </div>
+</div>
+
+<form class="form-horizontal" (submit)="enviarTrama()">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-4">
+                <div class="form-group">
+                    <label class="control-label">Médico</label>
+                    <input disabled type="text" id="medico" value="ANCHANTE HERNANDEZ, HENRY ALEXANDER" class="form-control">
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="form-group">
+                    <label class="control-label">His</label>
+                    <input disabled type="text" id="his" value="20004598" class="form-control">
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group">
+                    <label class="control-label">Fecha</label>
+                    <input disabled type="text" id="fecha" class="form-control">
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group">
+                    <label class="control-label">Hora</label>
+                    <input disabled type="text" id="hora" class="form-control">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12" style="text-align: right">
+                <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Enviar Trama HIS Minsa</button>
+            </div>
+        </div>
+        <br>
+        <div class="row">  
+                <table class="table">
+                    <thead>
+                        <tr role="row">
+                            <th># </th>
+                            <th>Nombre Paciente </th>
+                            <th>Nro. HC </th>
+                            <th>Sexo </th>
+                            <th>Etnia </th>
+                            <th>Edad </th>
+                            <th>Financiador </th>
+                            <th>DX </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let pacientes of pacientes; let i = index">
+                            <td>{{ i + 1 }}</td>
+                            <td>{{pacientes.paciente.persona.apellidoPaterno}}
+                                {{pacientes.paciente.persona.apellidoMaterno}},
+                                {{pacientes.paciente.persona.primerNombre}}
+                                {{pacientes.paciente.persona.segundoNombre}}
+                            </td>
+                            <td>{{pacientes.paciente.numeroHC}}</td>
+                            <td>{{pacientes.paciente.persona.sexo}}</td>
+                            <td>{{pacientes.paciente.persona.etnia}}</td>
+                            <td>{{pacientes.paciente.persona.edad}}</td>
+                            <td>{{pacientes.episodio.tipoPaciente}}</td>
+                            <td>I48X, E798
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div> 
+    </div>
+</form>
