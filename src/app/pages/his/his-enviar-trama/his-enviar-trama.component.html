@@ -1,1 +1,77 @@
-<p>his-enviar-trama works!</p>
+<div class="card-header">
+    <div class="row">
+        <div class="col-md-10">
+            <h4 class="m-b-0 text-black">Validación de Atenciones Fecha: {{ fechaAtencion }} </h4>
+        </div>
+        <div class="col-md-2" style="text-align: right">
+            <button type="button" (click)="cerrar()" class="btn waves-effect waves-light btn-block btn-secondary">X</button>
+        </div>
+    </div> 
+</div>
+
+<br>
+<div [ngSwitch]=cantHis>
+    <div *ngIf="cantHis === 0">
+        <div class="card-body">
+            <form action="#" class="form-horizontal">
+                <div class="form-body">
+                    <div><h4 style="color: blue;"><img class="card-img-top img-fluid " src="../assets/images/ok.png" alt="Card image cap"
+                        style="width: 50px;"> No se encontraron observaciones en validación inicial.
+                        </h4></div>
+                        <br>
+                    <div class="row">
+                        <div class="col-md-2" style="text-align: right">
+                        </div>
+                        <div class="col-md-8" style="text-align: right">
+                            <button type="button" class="btn btn-block btn-lg btn-success"><i class="fa fa-send"></i> ENVIAR TRAMA HIS
+                                MINSA</button>
+                        </div>
+                        <div class="col-md-2" style="text-align: right">
+                        </div>
+                        <!--/span-->
+                    </div>
+                </div>
+                <hr>
+            </form>
+        </div>
+    </div>
+    <div *ngIf="cantHis > 0"> 
+        <div><h4 style="color: red;"><img class="card-img-top img-fluid " src="../assets/images/alerta.png" alt="Card image cap"
+            style="width: 50px;">  Se encontraron {{cantHis}} Atencion(es) con observaciones. 
+            </h4></div>
+        <table class="table">
+            <thead>
+                <tr role="row">
+                    <th>#</th>
+                    <th>N° ATENCION</th>
+                    <th>PACIENTE</th>
+                    <th>N° DOCUMENTO</th>
+                    <th>ESPECIALIDAD</th>
+                    <th>OBSERVACIONES</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr
+                    *ngFor="let validaciones of validaciones | paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
+                    <td>{{ getGlobalIndex(i) }}</td>
+                    <td>{{validaciones.cita.id}}</td>
+                    <td>{{validaciones.cita.paciente.persona.apellidoPaterno}}
+                        {{validaciones.cita.paciente.persona.apellidoMaterno}},
+                        {{validaciones.cita.paciente.persona.primerNombre}} 
+                    </td>
+                    <td>{{validaciones.nroDocumento}}</td>
+                    <td>{{validaciones.cita.especialidad.nombreEspecialidad}}</td>
+                    <td style="color: red;">{{validaciones.observacion}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </div>
+</div>
+
+<ul>
+    <!--  <li *ngFor="let paciente of pacientes">
+      {{ paciente.paciente.persona.apellidoPaterno }} 
+    </li>-->
+</ul>
+

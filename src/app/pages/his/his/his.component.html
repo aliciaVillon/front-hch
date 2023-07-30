@@ -2,8 +2,9 @@
     <h4 class="text-themecolor">Listado de Atenciones por Fecha </h4>
 </div>
 
-<form class="form-horizontal"  [formGroup]="hisBusquedaForm" (submit)="Buscar()">
+
     <div class="card-body">
+        <form class="form-horizontal"  [formGroup]="hisBusquedaForm" (submit)="Buscar()">
         <div class="row">
             <div class="col-3">
                 <div class="form-group">
@@ -19,16 +20,21 @@
                 <select class="form-control" formControlName="especialidad"
                     [(ngModel)]="selectedEspecialidad">
                     <option value="0">--TODOS--</option> 
-                    <option *ngFor="let item of especialidades" [value]="item.idEspecialidad">{{item.nombreEspecialidad}}</option> 
+                    <option *ngFor="let item of especialidades" [value]="item.idCodTabla03">{{item.nombreEspecialidad}}</option> 
                 </select> 
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12" style="text-align: right">
+            <div class="col-md-2" style="text-align: right">
+                <button (click)="abrirValidacion()" type="button" class="btn waves-effect waves-light btn-block btn-primary">
+                    <i class="fa fa-check-square-o"></i> Validar</button> 
+            </div> 
+            <div class="col-md-10" style="text-align: right"> 
                 <button type="submit" class="btn btn-success"><i class="fa fa-search"></i> Buscar</button>
             </div>
         </div> 
+    </form>       
         <div id="example_filter" class="dataTables_filter">
             <label>Buscar:<input style="width: 350px;" class="" 
                 type="text" [(ngModel)]="textoBusqueda" (ngModelChange)="Search()"
@@ -40,41 +46,55 @@
                     <th (click)="sort('id')" class="sorting_desc" tabindex="0" rowspan="1" colspan="1"
                         style="width: 100px;" aria-label="Name: activate to sort column ascending"
                         aria-sort="descending"># &nbsp;<i class="fa fa-sort"></i></th>
-
-                    <th class="sorting" tabindex="0" rowspan="1" colspan="1" style="width: 323px;"
-                        aria-label="Position: activate to sort column ascending">MEDICO</th> 
+                    <th (click)="sort('id')" class="sorting_desc" tabindex="0" rowspan="1" colspan="1"
+                        style="width: 180px;" aria-label="Name: activate to sort column ascending"
+                        aria-sort="descending">N° ATENCION &nbsp;<i class="fa fa-sort"></i></th>
+                    <th class="sorting" tabindex="0" rowspan="1" colspan="1" style="width: 330px;"
+                        aria-label="Position: activate to sort column ascending">PACIENTE</th> 
+                        <th class="sorting" tabindex="0" aria-controls="example23" rowspan="1" colspan="1"
+                        style="width: 127px;" aria-label="Salary: activate to sort column ascending">HC</th>  
                     <th (click)="sort('especialidad')" class="sorting_desc" tabindex="0" aria-controls="example23"
-                        rowspan="1" colspan="1" style="width: 240px;">Especialidad&nbsp;<i class="fa fa-sort"></i>
+                        rowspan="1" colspan="1" style="width: 240px;">ESPECIALIDAD &nbsp;<i class="fa fa-sort"></i>
                     </th>
-                    <th class="sorting" tabindex="0" aria-controls="example23" rowspan="1" colspan="1"
-                        style="width: 127px;" aria-label="Salary: activate to sort column ascending">Fecha</th>
-                    <th class="sorting" tabindex="0" aria-controls="example23" rowspan="1" colspan="1"
-                        style="width: 140px;" aria-label="Salary: activate to sort column ascending">Hora</th>
-                    <th class="sorting" tabindex="0" aria-controls="example23" rowspan="1" colspan="1"
-                        style="width: 127px;" aria-label="Salary: activate to sort column ascending">Opciones</th> 
-                    <th>Financiador </th>
+                 
                     <th>DX </th>
+                    <th (click)="sort('flagHis')" class="sorting_desc" tabindex="0" aria-controls="example23"
+                    rowspan="1" colspan="1" style="width: 240px;">ESTADO&nbsp;<i class="fa fa-sort"></i>
+                    </th>
                     </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let pacientes of pacientes | paginate: { itemsPerPage: 10, currentPage: p }; let i = index">
                     <td>{{ getGlobalIndex(i) }}</td>
+                    <td>{{pacientes.id}}</td>
                     <td>{{pacientes.paciente.persona.apellidoPaterno}}
                         {{pacientes.paciente.persona.apellidoMaterno}},
                         {{pacientes.paciente.persona.primerNombre}}
                         {{pacientes.paciente.persona.segundoNombre}}
                     </td>
                     <td>{{pacientes.paciente.numeroHC}}</td>
-                    <td>{{pacientes.paciente.persona.sexo}}</td>
-                    <td>{{pacientes.paciente.persona.etnia}}</td>
-                    <td>{{pacientes.paciente.persona.edad}}</td>
-                    <td>{{pacientes.episodio.tipoPaciente}}</td>
+                    <td>{{pacientes.especialidad.nombreEspecialidad}}</td> 
                     <td>I48X, E798
-                    </td> 
+                    </td>
+                    <td>
+                        <div [ngSwitch]=pacientes.flagHis>
+                            <div *ngSwitchCase="'0'">
+                                <div class="label label-table label-warning">Pendiente</div>
+                            </div>
+                            <div *ngSwitchCase="'1'">
+                                <div class="label label-table label-success">Enviado</div>
+                            </div>
+                            <div *ngSwitchCase="'2'"> 
+                                <div class="label label-table label-danger">Rechazado</div>
+                            </div> 
+                          </div> 
+                    </td>  
                 </tr>
             </tbody>
         </table>
         <pagination-controls (pageChange)="p = $event"></pagination-controls>
     </div>
-</form>
-  
+
+    <ng-template #modalContent>
+        <app-his-pacientes-modal></app-his-pacientes-modal>
+      </ng-template>

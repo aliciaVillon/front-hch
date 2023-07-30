@@ -10,8 +10,10 @@ import { ConfigurarComponent } from '../components/configurar/configurar.compone
 import { HisComponent } from '../pages/his/his/his.component';
 import { HisEnviadosComponent } from '../pages/his/his-enviados/his-enviados.component';
 import { HisEnviarTramaComponent } from '../pages/his/his-enviar-trama/his-enviar-trama.component';
-import { HisPacientesComponent } from '../pages/his/his-pacientes/his-pacientes.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { HisPacientesModalComponent } from '../components/modal/his-pacientes-modal/his-pacientes-modal.component'
+
+
 @NgModule({
   declarations: [
     LoginComponent,
@@ -21,7 +23,10 @@ import { NgxPaginationModule } from 'ngx-pagination';
     HisComponent,
     HisEnviadosComponent,
     HisEnviarTramaComponent,
-    HisPacientesComponent
+    HisPacientesModalComponent
+  ],
+  entryComponents: [
+    HisPacientesModalComponent
   ],
   exports: [
     LoginComponent,
@@ -30,8 +35,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     ConfigurarComponent,
     HisComponent,
     HisEnviadosComponent,
-    HisEnviarTramaComponent,
-    HisPacientesComponent
+    HisEnviarTramaComponent
   ],
   imports: [ 
     CommonModule,
@@ -39,7 +43,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NgxPaginationModule
+    NgxPaginationModule, 
   ]
 })
 export class AuthModule { }

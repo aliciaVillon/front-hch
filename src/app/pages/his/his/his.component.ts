@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { AtencionHis } from 'src/app/models/atencionHis';  
@@ -9,30 +9,31 @@ import { CitaService } from 'src/app/services/cita.service';
 import { EspecialidadesService } from 'src/app/services/especialidades.service';
 import { ProgramacionDHService } from 'src/app/services/programacion-dh.service'; 
 import Swal from 'sweetalert2';
-
-
+import { MatDialog } from '@angular/material/dialog';
+import { HisPacientesModalComponent } from 'src/app/components/modal/his-pacientes-modal/his-pacientes-modal.component'
+import { HisEnviarTramaComponent } from 'src/app/pages/his/his-enviar-trama/his-enviar-trama.component'
 @Component({
   selector: 'app-his',
   templateUrl: './his.component.html',
-  styleUrls: ['./his.component.css']
+  styleUrls: ['./his.component.css'] 
 })
 
 
 export class HisComponent implements OnInit {
- 
+  @ViewChild('HisEnviarTramaComponent') modalContent: TemplateRef<any>;
 
   public totalRegistros: number = 0;
   public cargando: boolean = true;
   public atencionHis: AtencionHis[] = []; 
   public textoBusqueda: any; 
   public searchTerm: string = '';
-  public p: number = 1; 
+  public p: number = 0; 
   public currentDate: string;
   public sortColumn: string = '';
   public sortDirection: string = '';
   public pacientes: Cita[] = []; 
   public especialidades: Especialidades[] = [];
-  public medicos: ProgramacionDH[] = [];
+  //public medicos: ProgramacionDH[] = [];
   public hisBusquedaForm: FormGroup<any>;
 
   selectedEspecialidad: any;
@@ -48,15 +49,15 @@ export class HisComponent implements OnInit {
     private programacionDHService: ProgramacionDHService,
     private citaService: CitaService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    public dialog: MatDialog
 
   ) {
     this.cargando = true;
     
   }
 
-  ngOnInit(): void {
-       // Agregar las instancias al arreglo atencionHis 
+  ngOnInit(): void {  
 
     const today = new Date();
     const year = today.getFullYear();
@@ -132,17 +133,18 @@ export class HisComponent implements OnInit {
     if (this.textoBusqueda == "") {
       this.Buscar();
     } else {
-      this.medicos = this.medicos.filter(res => {
+      this.pacientes = this.pacientes.filter(res => {
        // return res.especialidad.toLocaleLowerCase().match(this.textoBusqueda.toLocaleLowerCase())
-       return res.especialidad.nombreEspecialidad.toLowerCase().includes(this.textoBusqueda.toLowerCase())/* ||
-              res.nombreMedico.toLowerCase().includes(this.textoBusqueda.toLowerCase());*/
+       // res.flagHis.toLowerCase().includes(this.textoBusqueda.toLowerCase()) ||
+       return res.paciente.persona.apellidoPaterno.toLowerCase().includes(this.textoBusqueda.toLowerCase())||
+              res.paciente.persona.apellidoMaterno.toLowerCase().includes(this.textoBusqueda.toLowerCase());
       });
     }
   }
   filterData() {
-    this.medicos = this.medicos.filter(item => {
+    this.pacientes = this.pacientes.filter(item => {
       // Aplica la lógica de filtrado según tus necesidades
-      return item.especialidad.nombreEspecialidad.toLowerCase().includes(this.searchTerm.toLowerCase());
+      return item.flagHis.toLowerCase().includes(this.searchTerm.toLowerCase());
     });
   }
 
@@ -158,7 +160,7 @@ sort(column: string) {
   }
 
   // Realizar la clasificación de los datos
-  this.medicos.sort((a, b) => {
+  this.pacientes.sort((a, b) => {
     const aValue = a[this.sortColumn];
     const bValue = b[this.sortColumn];
 
@@ -173,14 +175,40 @@ sort(column: string) {
 }
 mostrarMiComponente = false;
 
-abrirModalPacientes(atencionObj: ProgramacionDH) {
-  console.log("se abre otro html" + atencionObj.especialidad.nombreEspecialidad);
+abrirModal() {
+  this.dialog.open(HisEnviarTramaComponent, {
+    width: '400px',
+    // Otras opciones si es necesario
+  });
+}
+
+abrirValidacion() {
+  console.log("se abre otro html");
+  if(this.pacientes.length == 0){
+    Swal.fire('Error', 'No existe registros a validar.');
+  }else{
+    this.dialog.open(HisEnviarTramaComponent, {
+      width: '980px', 
+     // position: { top: '50px', left: '50px' }, // Personaliza la posición aquí 
+      data: {pacientes: this.pacientes, fechaAtencion:this.fechaAtencion, idEspecialidad: this.selectedEspecialidad}
+    });
+  } 
+
+
+ // modalRef.afterClosed().subscribe(result => {
+      // Lógica después de que el popup se cierra (si es necesario)
+   // });
+/*
+  const modalRef = this.dialog.open(HisPacientesModalComponent, {
+    width: '750px',
+    data: {pacientes: this.pacientes}
+  });
   const navigationExtras: NavigationExtras = {
     state: {
       atencion: atencionObj
     }
   };
-  this.router.navigate(['/dashboard/hisPaciente'], navigationExtras); 
+  this.router.navigate(['/dashboard/hisPaciente'], navigationExtras); */
 }
 
 }
