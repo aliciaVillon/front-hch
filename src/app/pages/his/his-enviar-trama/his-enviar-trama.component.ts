@@ -4,6 +4,8 @@ import { Cita } from 'src/app/models/cita.model';
 import { ValidacionHis } from 'src/app/models/validacionHis';
 import { CitaService } from 'src/app/services/cita.service';
 import Swal from 'sweetalert2';
+import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-his-enviar-trama',
@@ -18,6 +20,8 @@ export class HisEnviarTramaComponent implements OnInit {
   idEspecialidad: any;
   pageSize: number = 5;
   public p: number = 1; 
+
+  public tableData: any[] = [];
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -35,6 +39,26 @@ export class HisEnviarTramaComponent implements OnInit {
 
    }
  
+   downloadExcel(): void {
+    this.tableData = this.validaciones.map(validacion => {
+      return {
+        ID_ATENCION: validacion.cita.id,
+        FECHA_CITA: validacion.cita.fechaCita,
+        NOMBRE_PACIENTE: validacion.cita.paciente.persona.apellidoPaterno + ' '+
+                  validacion.cita.paciente.persona.apellidoMaterno + ' '+
+                  validacion.cita.paciente.persona.primerNombre,
+        NRO_DOCUMENTO: validacion.nroDocumento,
+        NOMBRE_ESPECIALIDAD: validacion.cita.especialidad.nombreEspecialidad,
+        OBSERVACION: validacion.observacion,
+      };
+    });
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.tableData);
+    const workbook: XLSX.WorkBook = { Sheets: { data: worksheet }, SheetNames: ['data'] };
+    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    const data: Blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+    saveAs(data, 'atencionObservacion.xlsx');
+  }
+
    buscar(){
     if(this.fechaAtencion == null){
       Swal.fire('Error', 'Debe seleccionar una fecha para búsqueda.');

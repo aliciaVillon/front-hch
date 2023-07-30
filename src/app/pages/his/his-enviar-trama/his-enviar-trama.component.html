@@ -1,12 +1,13 @@
 <div class="card-header">
     <div class="row">
-        <div class="col-md-10">
+        <div class="col-md-11">
             <h4 class="m-b-0 text-black">Validación de Atenciones Fecha: {{ fechaAtencion }} </h4>
         </div>
-        <div class="col-md-2" style="text-align: right">
-            <button type="button" (click)="cerrar()" class="btn waves-effect waves-light btn-block btn-secondary">X</button>
+        <div class="col-md-1" style="text-align: right">
+            <button type="button" (click)="cerrar()"
+                class="btn waves-effect waves-light btn-block btn-secondary">X</button>
         </div>
-    </div> 
+    </div>
 </div>
 
 <br>
@@ -15,15 +16,19 @@
         <div class="card-body">
             <form action="#" class="form-horizontal">
                 <div class="form-body">
-                    <div><h4 style="color: blue;"><img class="card-img-top img-fluid " src="../assets/images/ok.png" alt="Card image cap"
-                        style="width: 50px;"> No se encontraron observaciones en validación inicial.
-                        </h4></div>
-                        <br>
+                    <div>
+                        <h4 style="color: blue;"><img class="card-img-top img-fluid " src="../assets/images/ok.png"
+                                alt="Card image cap" style="width: 50px;"> No se encontraron observaciones en validación
+                            inicial.
+                        </h4>
+                    </div>
+                    <br>
                     <div class="row">
                         <div class="col-md-2" style="text-align: right">
                         </div>
                         <div class="col-md-8" style="text-align: right">
-                            <button type="button" class="btn btn-block btn-lg btn-success"><i class="fa fa-send"></i> ENVIAR TRAMA HIS
+                            <button type="button" class="btn btn-block btn-lg btn-success"><i class="fa fa-send"></i>
+                                ENVIAR TRAMA HIS
                                 MINSA</button>
                         </div>
                         <div class="col-md-2" style="text-align: right">
@@ -35,10 +40,21 @@
             </form>
         </div>
     </div>
-    <div *ngIf="cantHis > 0"> 
-        <div><h4 style="color: red;"><img class="card-img-top img-fluid " src="../assets/images/alerta.png" alt="Card image cap"
-            style="width: 50px;">  Se encontraron {{cantHis}} Atencion(es) con observaciones. 
-            </h4></div>
+    <div *ngIf="cantHis > 0">
+        <div>
+            <h4 style="color: red;"><img class="card-img-top img-fluid " src="../assets/images/alerta.png"
+                    alt="Card image cap" style="width: 50px;"> Se encontraron {{cantHis}} Atencion(es) con
+                observaciones.
+            </h4>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+            </div>
+            <div class="col-md-3" style="text-align: right">
+                <button (click)="downloadExcel()" type="button" class="btn waves-effect waves-light btn-info">
+                    <i class="fa fa-file-excel-o"></i> Descargar Excel</button>
+            </div>
+        </div>
         <table class="table">
             <thead>
                 <tr role="row">
@@ -57,7 +73,7 @@
                     <td>{{validaciones.cita.id}}</td>
                     <td>{{validaciones.cita.paciente.persona.apellidoPaterno}}
                         {{validaciones.cita.paciente.persona.apellidoMaterno}},
-                        {{validaciones.cita.paciente.persona.primerNombre}} 
+                        {{validaciones.cita.paciente.persona.primerNombre}}
                     </td>
                     <td>{{validaciones.nroDocumento}}</td>
                     <td>{{validaciones.cita.especialidad.nombreEspecialidad}}</td>
@@ -74,4 +90,3 @@
       {{ paciente.paciente.persona.apellidoPaterno }} 
     </li>-->
 </ul>
-

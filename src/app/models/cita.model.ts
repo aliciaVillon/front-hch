@@ -12,7 +12,8 @@ export class Cita {
         public flagHis: string,
         public paciente: Paciente,
         public episodio: Episodio,
-        public especialidad: Especialidades
+        public especialidad: Especialidades,
+        public fechaCita: string,
     ){}
    
 }
