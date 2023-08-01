@@ -25,7 +25,7 @@ export class HisEnviarTramaComponent implements OnInit {
   idEspecialidad: any;
   pageSize: number = 5;
   p: number = 1; 
-
+  enviar : number = 0;
   validacionesTrama: ValidacionHis;
   tramaHisMinsa: Trama;
 
@@ -70,12 +70,13 @@ export class HisEnviarTramaComponent implements OnInit {
     this.citaService.getObtenerTrama(this.fechaAtencion,this.idEspecialidad)
     .subscribe((tramaJsonHis: TramaHis[]) => { 
       this.tramaJsonHis = tramaJsonHis;  
+      this.enviar = 1;
     },
     error => {
       Swal.fire('Error', 'Ocurrió un eror al listar trama de envío.');
     }); 
 
-    if(this.tramaJsonHis != null){
+    if(this.enviar == 1){
       this.tramaJsonHis.map(trama => {
         this.tramaHisMinsa.personal_atiende.nrodocumento = trama.nrodocumentoMed,
         this.tramaHisMinsa.personal_atiende.apematerno = trama.apematernoMed,
