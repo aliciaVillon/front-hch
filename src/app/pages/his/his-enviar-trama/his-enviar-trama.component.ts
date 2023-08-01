@@ -76,18 +76,18 @@ export class HisEnviarTramaComponent implements OnInit {
       Swal.fire('Error', 'Ocurrió un eror al listar trama de envío.');
     }); 
 
-    if(this.enviar == 1){
+    if(this.enviar = 1){
       this.tramaJsonHis.map(trama => {
-        this.tramaHisMinsa.personal_atiende.nrodocumento = trama.nrodocumentoMed,
-        this.tramaHisMinsa.personal_atiende.apematerno = trama.apematernoMed,
-        this.tramaHisMinsa.personal_atiende.idpais = trama.idpaisMed,
-        this.tramaHisMinsa.personal_atiende.idprofesion = trama.idprofesion,
-        this.tramaHisMinsa.personal_atiende.fechanacimiento = trama.fechanacimientoMed,
-        this.tramaHisMinsa.personal_atiende.nombres = trama.nombresMed,
-        this.tramaHisMinsa.personal_atiende.idtipodoc = trama.idtipodocMed,
-        this.tramaHisMinsa.personal_atiende.apepaterno = trama.apepaternoMed,
-        this.tramaHisMinsa.personal_atiende.idsexo = trama.idsexoMed,
-        this.tramaHisMinsa.personal_atiende.idcondicion = trama.idcondicion,
+        this.tramaHisMinsa.personalAtiende.nrodocumento = trama.nrodocumentoMed,
+        this.tramaHisMinsa.personalAtiende.apematerno = trama.apematernoMed,
+        this.tramaHisMinsa.personalAtiende.idpais = trama.idpaisMed,
+        this.tramaHisMinsa.personalAtiende.idprofesion = trama.idprofesion,
+        this.tramaHisMinsa.personalAtiende.fechanacimiento = trama.fechanacimientoMed,
+        this.tramaHisMinsa.personalAtiende.nombres = trama.nombresMed,
+        this.tramaHisMinsa.personalAtiende.idtipodoc = trama.idtipodocMed,
+        this.tramaHisMinsa.personalAtiende.apepaterno = trama.apepaternoMed,
+        this.tramaHisMinsa.personalAtiende.idsexo = trama.idsexoMed,
+        this.tramaHisMinsa.personalAtiende.idcondicion = trama.idcondicion,
         
         this.tramaHisMinsa.personal_registra.nrodocumento = trama.nrodocumentoUsu,
         this.tramaHisMinsa.personal_registra.apematerno = trama.apematernoUsu,
