@@ -14,6 +14,7 @@ export class Cita {
         public episodio: Episodio,
         public especialidad: Especialidades,
         public fechaCita: string,
+        public flagCita: string,
     ){}
    
 }
