@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Cita } from 'src/app/models/cita.model';
+//import { Cita } from 'src/app/models/cita.model';
 import { ValidacionHis } from 'src/app/models/validacionHis';
 import { CitaService } from 'src/app/services/cita.service';
 import Swal from 'sweetalert2';
@@ -8,6 +8,13 @@ import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver'; 
 import { Trama } from 'src/app/models/ws-his/trama';
 import { TramaHis } from 'src/app/models/tramaHis';
+import { Personal_atiende } from 'src/app/models/ws-his/personal_atiende';
+import { Personal_registra } from 'src/app/models/ws-his/personal_registra';
+import { Paciente } from 'src/app/models/ws-his/paciente';
+import { Cita } from 'src/app/models/ws-his/cita';
+import { Examenfisico } from 'src/app/models/ws-his/examenfisico';
+import { Items } from 'src/app/models/ws-his/items';
+import { Labs } from 'src/app/models/ws-his/labs';
 
 @Component({
   selector: 'app-his-enviar-trama',
@@ -75,10 +82,83 @@ export class HisEnviarTramaComponent implements OnInit {
     error => {
       Swal.fire('Error', 'Ocurrió un eror al listar trama de envío.');
     }); 
-
+    console.log("inicia envío")
     if(this.enviar == 1){
       this.tramaJsonHis.map(trama => {
-        this.tramaHisMinsa.personal_atiende.nrodocumento = trama.nrodocumentoMed,
+        this.tramaHisMinsa = new Trama(
+          new Personal_atiende(
+            trama.nrodocumentoMed, 
+            trama.apematernoMed, 
+            trama.idpaisMed, 
+            trama.idprofesion, 
+            trama.fechanacimientoMed,
+            trama.nombresMed, 
+            trama.idtipodocMed, 
+            trama.apepaternoMed, 
+            trama.idsexoMed, 
+            trama.idcondicion 
+          ),
+          new Personal_registra(
+            trama.nrodocumentoUsu,
+            trama.apematernoUsu,
+            trama.idpaisUsu,
+            trama.idprofesionUsu,
+            trama.fechanacimientoUsu,
+            trama.nombresUsu,
+            trama.idtipodocUsu,
+            trama.apepaternoUsu,
+            trama.idsexoUsu,
+            trama.idcondicionUsu,
+          ),
+          new Paciente(  
+            trama.nrodocumentoPac,
+            trama.apematernoPac,
+            trama.idpaisPac,
+            trama.idflag,  
+            trama.fechanacimientoPac,
+            trama.nombresPac,
+            trama.idtipodocPac,
+            trama.apepaternoPac,
+            trama.idetniaPac,
+            trama.idsexoPac, 
+            trama.nrohistoriaclinica,
+            trama.idestablecimiento  
+          ),
+          new Cita(  
+             "",
+            trama.fechaatencion,
+            "A",
+            trama.idups,
+            trama.idestablecimiento,
+            trama.diaedad,
+            trama.edadregistro,
+            trama.idturno,
+            trama.idtipedadregistro,
+            "3",
+            trama.mesedad,
+            "",
+            trama.finan,
+            trama.idtipocondestab,
+            trama.idtipocondserv,
+            trama.annioedad,
+              new Examenfisico(
+                trama.peso,
+                trama.talla,
+                trama.hemoglobina,
+                trama.perimetrocefalico,
+                trama.perimetroabdominal
+              ),
+              new Items (        
+                "D",
+                "M170",
+                "CX",
+                 new Labs(
+                 "3",
+                 "PV"
+                 ))
+          ));
+
+       /* this.tramaHisMinsa.personal_atiende.nrodocumento = trama.nrodocumentoMed,
         this.tramaHisMinsa.personal_atiende.apematerno = trama.apematernoMed,
         this.tramaHisMinsa.personal_atiende.idpais = trama.idpaisMed,
         this.tramaHisMinsa.personal_atiende.idprofesion = trama.idprofesion,
@@ -88,7 +168,7 @@ export class HisEnviarTramaComponent implements OnInit {
         this.tramaHisMinsa.personal_atiende.apepaterno = trama.apepaternoMed,
         this.tramaHisMinsa.personal_atiende.idsexo = trama.idsexoMed,
         this.tramaHisMinsa.personal_atiende.idcondicion = trama.idcondicion,
-        
+      
         this.tramaHisMinsa.personal_registra.nrodocumento = trama.nrodocumentoUsu,
         this.tramaHisMinsa.personal_registra.apematerno = trama.apematernoUsu,
         this.tramaHisMinsa.personal_registra.idpais = trama.idpaisUsu,
@@ -99,19 +179,6 @@ export class HisEnviarTramaComponent implements OnInit {
         this.tramaHisMinsa.personal_registra.apepaterno = trama.apepaternoUsu,
         this.tramaHisMinsa.personal_registra.idsexo = trama.idsexoUsu,
         this.tramaHisMinsa.personal_registra.idcondicion = trama.idcondicionUsu,
-
-        this.tramaHisMinsa.paciente.nrodocumento = trama.nrodocumentoPac,
-        this.tramaHisMinsa.paciente.apematerno = trama.apematernoPac,
-        this.tramaHisMinsa.paciente.idflag = trama.idflag, 
-        this.tramaHisMinsa.paciente.idpais = trama.idpaisPac, 
-        this.tramaHisMinsa.paciente.fechanacimiento = trama.fechanacimientoPac,
-        this.tramaHisMinsa.paciente.nombres = trama.nombresPac,
-        this.tramaHisMinsa.paciente.idtipodoc = trama.idtipodocPac,
-        this.tramaHisMinsa.paciente.apepaterno = trama.apepaternoPac,
-        this.tramaHisMinsa.paciente.idsexo = trama.idsexoPac,
-        this.tramaHisMinsa.paciente.idetnia = trama.idetniaPac,
-        this.tramaHisMinsa.paciente.idestablecimiento = trama.idestablecimiento,
-        this.tramaHisMinsa.paciente.nrohistoriaclinica = trama.nrohistoriaclinica,
 
         this.tramaHisMinsa.cita.numeroafiliacion = "",
         this.tramaHisMinsa.cita.fechaatencion = trama.fechaatencion,
@@ -135,13 +202,30 @@ export class HisEnviarTramaComponent implements OnInit {
         this.tramaHisMinsa.cita.examenfisico.hemoglobina = trama.hemoglobina,
         this.tramaHisMinsa.cita.examenfisico.perimetrocefalico = trama.perimetrocefalico,
         this.tramaHisMinsa.cita.examenfisico.perimetroabdominal = trama.perimetroabdominal,
-
+          
         this.tramaHisMinsa.cita.items.labs.codigo ="3",
         this.tramaHisMinsa.cita.items.labs.valor ="PV",
 
         this.tramaHisMinsa.cita.items.tipodiagnostico = "D",
         this.tramaHisMinsa.cita.items.codigo ="M170",
         this.tramaHisMinsa.cita.items.tipoitem ="CX",
+
+                this.tramaHisMinsa.paciente.nrodocumento = trama.nrodocumentoPac,
+        this.tramaHisMinsa.paciente.apematerno = trama.apematernoPac,
+        this.tramaHisMinsa.paciente.idflag = trama.idflag, 
+        this.tramaHisMinsa.paciente.idpais = trama.idpaisPac, 
+        this.tramaHisMinsa.paciente.fechanacimiento = trama.fechanacimientoPac,
+        this.tramaHisMinsa.paciente.nombres = trama.nombresPac,
+        this.tramaHisMinsa.paciente.idtipodoc = trama.idtipodocPac,
+        this.tramaHisMinsa.paciente.apepaterno = trama.apepaternoPac,
+        this.tramaHisMinsa.paciente.idsexo = trama.idsexoPac,
+        this.tramaHisMinsa.paciente.idetnia = trama.idetniaPac,
+        this.tramaHisMinsa.paciente.idestablecimiento = trama.idestablecimiento,
+        this.tramaHisMinsa.paciente.nrohistoriaclinica = trama.nrohistoriaclinica,
+  */
+
+
+
 
           this.citaService.postEnviarTrama(this.tramaHisMinsa)
           .subscribe((resp: any) => {  
