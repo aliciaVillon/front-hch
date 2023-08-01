@@ -67,7 +67,7 @@ export class HisEnviarTramaComponent implements OnInit {
 
   enviarTrama(){
 
-    this.citaService.getObtenerTrama(this.fechaAtencion,this.idEspecialidad)
+    this.citaService.getObtenerTrama(this.fechaAtencion,this.idEspecialidad,"44960406")
     .subscribe((tramaJsonHis: TramaHis[]) => { 
       this.tramaJsonHis = tramaJsonHis;  
       this.enviar = 1;

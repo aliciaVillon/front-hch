@@ -31,8 +31,8 @@ export class CitaService {
       map((resp) => resp.data)
     );
   }
-  getObtenerTrama(fecha: string,idEspecialidad: string) {
-    const url = `${base_url}/his/listarTramaHis/${fecha}/${idEspecialidad}`; 
+  getObtenerTrama(fecha: string,idEspecialidad: string,documUsu: string) {
+    const url = `${base_url}/his/listarTramaHis/${fecha}/${idEspecialidad}/${documUsu}`; 
     return this.http.get<{ message: string; data: TramaHis[] }>(url).pipe(
       map((resp) => resp.data)
     );
